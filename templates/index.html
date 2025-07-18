@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>CropWise - Smart Crop Recommendation</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #e6f8ed, #ffffff);
+      color: #333;
+    }
+    header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header img { height: 24px; }
+    header span {
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 8px;
+      color:#1DA246;
+    }
+    main {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #222;
+    }
+    h1 span { color: #1DA246; }
+    p { line-height: 1.5; color: #555; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 12px;
+      color: #333;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #1DA246;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #168837; }
+    .lang-select {
+      font-size: 14px;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    #errorBox {
+      margin-top: 16px;
+      color: #d13939;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="https://img.icons8.com/ios-filled/50/1DA246/leaf.png" alt="Logo">
+      <span>CropWise</span>
+    </div>
+    <select id="language" class="lang-select" aria-label="Language select">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+      <option value="te">తెలుగు</option>
+    </select>
+  </header>
+
+  <main>
+    <h1>Smart Crop <span>Recommendation</span></h1>
+    <p>Enter your soil and weather details to get the best crop recommendations.</p>
+
+    <form id="cropForm">
+      <label for="N">Nitrogen (N)</label>
+      <input type="number" id="N" name="N" required min="0" max="140" />
+
+      <label for="P">Phosphorus (P)</label>
+      <input type="number" id="P" name="P" required min="0" max="140" />
+
+      <label for="K">Potassium (K)</label>
+      <input type="number" id="K" name="K" required min="0" max="140" />
+
+      <label for="temperature">Temperature (°C)</label>
+      <input type="number" id="temperature" name="temperature" step="0.1" required min="5" max="50" />
+
+      <label for="humidity">Humidity (%)</label>
+      <input type="number" id="humidity" name="humidity" step="0.1" required min="5" max="100" />
+
+      <label for="ph">Soil pH</label>
+      <input type="number" id="ph" name="ph" step="0.1" required min="3.0" max="10.0" />
+
+      <label for="rainfall">Rainfall (mm)</label>
+      <input type="number" id="rainfall" name="rainfall" step="0.1" required min="1" max="300" />
+
+      <button type="submit">Get Recommendations</button>
+    </form>
+
+    <div id="errorBox"></div>
+  </main>
+
+  <script>
+    /* -------- Language persistence -------- */
+    const langSelect = document.getElementById("language");
+    const savedLang = localStorage.getItem("language");
+    if (savedLang) langSelect.value = savedLang;
+    langSelect.addEventListener("change", () => {
+      localStorage.setItem("language", langSelect.value);
+    });
+
+    /* -------- Form submission -------- */
+    document.getElementById("cropForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const errorBox = document.getElementById("errorBox");
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+
+      // Gather + validate
+      const formData = {
+        N: parseFloat(document.getElementById("N").value),
+        P: parseFloat(document.getElementById("P").value),
+        K: parseFloat(document.getElementById("K").value),
+        temperature: parseFloat(document.getElementById("temperature").value),
+        humidity: parseFloat(document.getElementById("humidity").value),
+        ph: parseFloat(document.getElementById("ph").value),
+        rainfall: parseFloat(document.getElementById("rainfall").value)
+      };
+
+      // Basic NaN check
+      for (const [k, v] of Object.entries(formData)) {
+        if (isNaN(v)) {
+          errorBox.textContent = `Please enter a valid value for ${k}.`;
+          errorBox.style.display = "block";
+          return;
+        }
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:8000/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Save predictions + redirect
+        localStorage.setItem("cropResults", JSON.stringify(data.predictions));
+        window.location.href = "results.html";
+
+      } catch (err) {
+        console.error("Prediction error:", err);
+        errorBox.textContent = "Error fetching crop recommendations. Please try again.";
+        errorBox.style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>

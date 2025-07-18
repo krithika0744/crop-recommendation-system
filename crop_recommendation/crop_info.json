@@ -1,0 +1,174 @@
+{
+  "rice": {
+    "name_hi": "धान",
+    "name_te": "బియ్యం",
+    "image_url": "/static/images/rice.jpg",
+    "expected_yield": "4–6 tons/hectare",
+    "market_price": "₹20–25/kg",
+    "best_season": "Kharif",
+    "advantages": [
+      "High water availability",
+      "Suitable soil pH",
+      "Optimal temperature"
+    ],
+    "considerations": [
+      "Requires consistent water",
+      "Labor intensive"
+    ]
+  },
+  "wheat": {
+    "name_hi": "गेहूँ",
+    "name_te": "గోధుమలు",
+    "image_url": "/static/images/wheat.jpg",
+    "expected_yield": "3–4 tons/hectare",
+    "market_price": "₹18–22/kg",
+    "best_season": "Rabi",
+    "advantages": [
+      "Good soil nutrients",
+      "Suitable temperature",
+      "Lower water requirement"
+    ],
+    "considerations": [
+      "pH slightly high",
+      "Market price fluctuation"
+    ]
+  },
+  "maize": {
+    "name_hi": "मकई",
+    "name_te": "మొక్కజొన్న",
+    "image_url": "/static/images/maize.jpg",
+    "expected_yield": "2.5–3.5 tons/hectare",
+    "market_price": "₹15–20/kg",
+    "best_season": "Kharif",
+    "advantages": [
+      "Adaptable to varied soils",
+      "Moderate water needs",
+      "Good market demand"
+    ],
+    "considerations": [
+      "Sensitive to pests",
+      "Needs balanced fertilization"
+    ]
+  },
+  "chickpea": {
+    "name_hi": "चना",
+    "name_te": "శనగలు",
+    "image_url": "/static/images/chickpea.jpg",
+    "expected_yield": "1–2 tons/hectare",
+    "market_price": "₹45–60/kg",
+    "best_season": "Rabi",
+    "advantages": [
+      "Low water requirement",
+      "Improves soil fertility",
+      "Drought-resistant pulse"
+    ],
+    "considerations": [
+      "Slow early growth",
+      "Wilt disease risk"
+    ]
+  },
+  "pigeonpeas": {
+    "name_hi": "अरहर",
+    "name_te": "కందిపప్పు",
+    "image_url": "/static/images/pigeonpea.jpg",
+    "expected_yield": "1–3 tons/hectare",
+    "market_price": "₹50–60/kg",
+    "best_season": "Kharif",
+    "advantages": [
+      "Deep-rooted & drought-resistant",
+      "Nitrogen-fixing legume",
+      "High protein pulse"
+    ],
+    "considerations": [
+      "Long duration crop",
+      "Frost-sensitive"
+    ]
+  },
+  "mothbeans": {
+    "name_hi": "मटकी",
+    "name_te": "బొబ్బర్లు (మోత పప్పు)",
+    "image_url": "/static/images/mothbeans.jpg",
+    "expected_yield": "0.5–1.2 tons/hectare",
+    "market_price": "₹55–70/kg",
+    "best_season": "Kharif (arid zones)",
+    "advantages": [
+      "Thrives in poor, sandy soils",
+      "Highly drought tolerant",
+      "Short duration; good for low-input farming",
+      "Improves soil nitrogen when incorporated"
+    ],
+    "considerations": [
+      "Lower yield potential vs other pulses",
+      "Sensitive to waterlogging",
+      "Harvest timing important to avoid shattering"
+    ]
+  },
+  "mungbean": {
+    "name_hi": "मूंग",
+    "name_te": "పెసర్లు",
+    "image_url": "/static/images/mungbean.jpg",
+    "expected_yield": "0.8–1.2 tons/hectare",
+    "market_price": "₹60–80/kg",
+    "best_season": "Summer / Rabi",
+    "advantages": [
+      "Short duration crop",
+      "Improves soil fertility",
+      "Strong market demand"
+    ],
+    "considerations": [
+      "Powdery mildew risk",
+      "Requires warm growing conditions"
+    ]
+  },
+  "blackgram": {
+    "name_hi": "उड़द",
+    "name_te": "మినప పప్పు",
+    "image_url": "/static/images/blackgram.jpg",
+    "expected_yield": "1–1.5 tons/hectare",
+    "market_price": "₹70–90/kg",
+    "best_season": "Kharif / Rabi",
+    "advantages": [
+      "Improves soil health",
+      "Short duration",
+      "Excellent for crop rotation"
+    ],
+    "considerations": [
+      "Waterlogging risk",
+      "Pod borer & yellow mosaic virus prone"
+    ]
+  },
+  "lentil": {
+    "name_hi": "मसूर",
+    "name_te": "మసూర్ పప్పు",
+    "image_url": "/static/images/lentil.jpg",
+    "expected_yield": "1–1.2 tons/hectare",
+    "market_price": "₹50–65/kg",
+    "best_season": "Rabi",
+    "advantages": [
+      "Cold-tolerant winter pulse",
+      "Good dietary protein",
+      "Improves soil health"
+    ],
+    "considerations": [
+      "Moisture-sensitive at flowering",
+      "Slow early growth; weed control needed"
+    ]
+  },
+  "pomegranate": {
+    "name_hi": "अनार",
+    "name_te": "దానిమ్మ",
+    "image_url": "/static/images/pomegranate.jpg",
+    "expected_yield": "10–15 tons/hectare",
+    "market_price": "₹80–150/kg",
+    "best_season": "All year (best flushes: Jan–Mar, Jul–Sep)",
+    "advantages": [
+      "High market value fruit",
+      "Tolerates dry conditions",
+      "Long post-harvest shelf life"
+    ],
+    "considerations": [
+      "Fruit cracking in uneven moisture",
+      "Requires regular pruning & training"
+    ]
+  }
+}
