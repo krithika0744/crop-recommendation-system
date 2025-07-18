@@ -1,26 +1,28 @@
 from __future__ import annotations
 
-import os
 import json
+import os
 import pickle
 from pathlib import Path
 from typing import List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, ConfigDict, Field
 
 # ------------------------------------------------------------------
 # Paths
 # ------------------------------------------------------------------
-# __file__ -> .../crop_recommendation/app.py
-BASE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = BASE_DIR.parent  # repo root (where static/ lives)
+BASE_DIR = Path(__file__).resolve().parent          # .../crop_recommendation
+PROJECT_ROOT = BASE_DIR.parent                      # repo root
 
 MODEL_PATH = BASE_DIR / "model.pkl"
 CROP_INFO_PATH = BASE_DIR / "crop_info.json"
 STATIC_PATH = PROJECT_ROOT / "static"
+TEMPLATES_PATH = PROJECT_ROOT / "templates"
 
 # ------------------------------------------------------------------
 # FastAPI application
@@ -31,10 +33,13 @@ app = FastAPI(title="Crop Recommendation API", version="2.0.0")
 if STATIC_PATH.is_dir():
     app.mount("/static", StaticFiles(directory=str(STATIC_PATH)), name="static")
 
+# Templates
+templates = Jinja2Templates(directory=str(TEMPLATES_PATH))
+
 # CORS (open for now; tighten in prod)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # TODO: restrict
+    allow_origins=["*"],  # TODO: restrict in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -97,10 +102,25 @@ class CropInput(BaseModel):
 
 
 # ------------------------------------------------------------------
-# Health/root
+# Frontend pages
 # ------------------------------------------------------------------
-@app.get("/")
-def read_root():
+@app.get("/", response_class=HTMLResponse)
+async def serve_index(request: Request):
+    """Serve the input form page."""
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/results", response_class=HTMLResponse)
+async def serve_results(request: Request):
+    """Serve the results page (JS will fetch /predict)."""
+    return templates.TemplateResponse("results.html", {"request": request})
+
+
+# ------------------------------------------------------------------
+# Health/root JSON status
+# ------------------------------------------------------------------
+@app.get("/health")
+def read_health():
     return {
         "status": "ok",
         "message": "Crop Recommendation API",
@@ -109,7 +129,7 @@ def read_root():
 
 
 # ------------------------------------------------------------------
-# Predict endpoint
+# Predict endpoint (API)
 # ------------------------------------------------------------------
 @app.post("/predict")
 def predict(data: CropInput):
@@ -144,6 +164,7 @@ def predict(data: CropInput):
             "predictions": [{
                 "crop": pred,
                 "match": "N/A",
+                "probability": None,
                 "image_url": info.get("image_url", ""),
                 "expected_yield": info.get("expected_yield", "N/A"),
                 "market_price": info.get("market_price", "N/A"),
@@ -161,8 +182,8 @@ def predict(data: CropInput):
     preds = []
     for i in top_idx:
         crop_name = classes[i]
-        prob = probabilities[i]
-        match_percent = round(float(prob) * 100, 2)
+        prob = float(probabilities[i])
+        match_percent = round(prob * 100, 2)
         info = crop_info.get(crop_name, {})
 
         preds.append({
