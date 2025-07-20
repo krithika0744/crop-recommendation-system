@@ -229,8 +229,8 @@
     const priceTxt = crop.market_price || "N/A";
 
     // Get translated advantages & considerations
-    const advList = (crop.advantages && crop.advantages[lang]) ? crop.advantages[lang] : crop.advantages?.en || [];
-    const conList = (crop.considerations && crop.considerations[lang]) ? crop.considerations[lang] : crop.considerations?.en || [];
+    const advList = (crop.advantages && crop.advantages[langMode]) || crop.advantages?.en || [];
+    const conList = (crop.considerations && crop.considerations[langMode]) || crop.considerations?.en || [];
 
     const imgSrc = resolveImage(crop.image_url);
     const titleEn = crop.crop || "Unknown";
