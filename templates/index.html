@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0" />
   <title>CropWise - Smart Crop Recommendation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -95,51 +99,131 @@
   </header>
 
   <main>
-    <h1>Smart Crop <span>Recommendation</span></h1>
-    <p>Enter your soil and weather details to get the best crop recommendations.</p>
+    <h1 id="mainHeading">Smart Crop <span>Recommendation</span></h1>
+    <p id="introText">Enter your soil and weather details to get the best crop recommendations.</p>
 
     <form id="cropForm">
-      <label for="N">Nitrogen (N)</label>
+      <label for="N" id="lblN">Nitrogen (N)</label>
       <input type="number" id="N" name="N" required min="0" max="140" />
 
-      <label for="P">Phosphorus (P)</label>
+      <label for="P" id="lblP">Phosphorus (P)</label>
       <input type="number" id="P" name="P" required min="0" max="140" />
 
-      <label for="K">Potassium (K)</label>
+      <label for="K" id="lblK">Potassium (K)</label>
       <input type="number" id="K" name="K" required min="0" max="140" />
 
-      <label for="temperature">Temperature (°C)</label>
+      <label for="temperature" id="lblTemp">Temperature (°C)</label>
       <input type="number" id="temperature" name="temperature" step="0.1" required min="5" max="50" />
 
-      <label for="humidity">Humidity (%)</label>
+      <label for="humidity" id="lblHum">Humidity (%)</label>
       <input type="number" id="humidity" name="humidity" step="0.1" required min="5" max="100" />
 
-      <label for="ph">Soil pH</label>
+      <label for="ph" id="lblpH">Soil pH</label>
       <input type="number" id="ph" name="ph" step="0.1" required min="3.0" max="10.0" />
 
-      <label for="rainfall">Rainfall (mm)</label>
+      <label for="rainfall" id="lblRain">Rainfall (mm)</label>
       <input type="number" id="rainfall" name="rainfall" step="0.1" required min="1" max="300" />
 
-      <button type="submit">Get Recommendations</button>
+      <button id="submitBtn" type="submit">Get Recommendations</button>
     </form>
 
     <div id="errorBox"></div>
   </main>
 
   <script>
+    /* ----------------------------------------------------
+     * CONFIG
+     * -------------------------------------------------- */
     const API_URL = "https://crop-recommendation-system-bd1n.onrender.com/predict";
 
-    /* -------- Language persistence -------- */
+    /* ----------------------------------------------------
+     * TRANSLATIONS
+     * -------------------------------------------------- */
+    const STRINGS = {
+      en: {
+        heading_html: "Smart Crop <span>Recommendation</span>",
+        intro: "Enter your soil and weather details to get the best crop recommendations.",
+        N: "Nitrogen (N)",
+        P: "Phosphorus (P)",
+        K: "Potassium (K)",
+        temperature: "Temperature (°C)",
+        humidity: "Humidity (%)",
+        ph: "Soil pH",
+        rainfall: "Rainfall (mm)",
+        submit: "Get Recommendations",
+        err_field: (field) => `Please enter a valid value for ${field}.`,
+        err_fetch: "Error fetching crop recommendations. Please try again."
+      },
+      hi: {
+        heading_html: "स्मार्ट फसल <span>अनुशंसा</span>",
+        intro: "सर्वोत्तम फसल सिफारिशें पाने के लिए अपनी मिट्टी और मौसम का विवरण दर्ज करें।",
+        N: "नाइट्रोजन (N)",
+        P: "फास्फोरस (P)",
+        K: "पोटेशियम (K)",
+        temperature: "तापमान (°C)",
+        humidity: "आर्द्रता (%)",
+        ph: "मिट्टी का pH",
+        rainfall: "वर्षा (मिमी)",
+        submit: "सिफारिश प्राप्त करें",
+        err_field: (field) => `${field} के लिए मान्य मान दर्ज करें।`,
+        err_fetch: "फसल सिफारिशें लाने में त्रुटि। कृपया पुनः प्रयास करें।"
+      },
+      te: {
+        heading_html: "స్మార్ట్ పంట <span>సిఫార్సు</span>",
+        intro: "ఉత్తమ పంట సిఫార్సులు పొందడానికి మీ నేల & వాతావరణ వివరాలు నమోదు చేయండి.",
+        N: "నైట్రోజన్ (N)",
+        P: "ఫాస్ఫరస్ (P)",
+        K: "పొటాషియమ్ (K)",
+        temperature: "ఉష్ణోగ్రత (°C)",
+        humidity: "ఆర్ద్రత (%)",
+        ph: "నేల pH",
+        rainfall: "వర్షపాతం (మిమీ)",
+        submit: "సిఫార్సు పొందండి",
+        err_field: (field) => `${field} కు సరైన విలువ ఇవ్వండి.`,
+        err_fetch: "పంట సిఫార్సులను పొందడంలో లోపం. దయచేసి మళ్లీ ప్రయత్నించండి."
+      }
+    };
+
+    const FIELD_NAMES_FOR_ERR = {
+      en: {N:"Nitrogen",P:"Phosphorus",K:"Potassium",temperature:"Temperature",humidity:"Humidity",ph:"Soil pH",rainfall:"Rainfall"},
+      hi: {N:"नाइट्रोजन",P:"फास्फोरस",K:"पोटेशियम",temperature:"तापमान",humidity:"आर्द्रता",ph:"मिट्टी का pH",rainfall:"वर्षा"},
+      te: {N:"నైట్రోజన్",P:"ఫాస్ఫరస్",K:"పొటాషియమ్",temperature:"ఉష్ణోగ్రత",humidity:"ఆర్ద్రత",ph:"నేల pH",rainfall:"వర్షపాతం"}
+    };
+
+    /* ----------------------------------------------------
+     * LANGUAGE HANDLING
+     * -------------------------------------------------- */
     const langSelect = document.getElementById("language");
-    const savedLang = localStorage.getItem("language");
-    if (savedLang) langSelect.value = savedLang;
+    const savedLang = localStorage.getItem("language") || "en";
+    langSelect.value = savedLang;
+    applyLanguage(savedLang);
+
     langSelect.addEventListener("change", () => {
-      localStorage.setItem("language", langSelect.value);
+      const lang = langSelect.value;
+      localStorage.setItem("language", lang);
+      applyLanguage(lang);
     });
 
-    /* -------- Form submission -------- */
+    function applyLanguage(lang) {
+      const S = STRINGS[lang];
+      document.getElementById("mainHeading").innerHTML = S.heading_html;
+      document.getElementById("introText").textContent = S.intro;
+      document.getElementById("lblN").textContent = S.N;
+      document.getElementById("lblP").textContent = S.P;
+      document.getElementById("lblK").textContent = S.K;
+      document.getElementById("lblTemp").textContent = S.temperature;
+      document.getElementById("lblHum").textContent = S.humidity;
+      document.getElementById("lblpH").textContent = S.ph;
+      document.getElementById("lblRain").textContent = S.rainfall;
+      document.getElementById("submitBtn").textContent = S.submit;
+    }
+
+    /* ----------------------------------------------------
+     * FORM SUBMIT
+     * -------------------------------------------------- */
     document.getElementById("cropForm").addEventListener("submit", async function (e) {
       e.preventDefault();
+      const lang = langSelect.value;
       const errorBox = document.getElementById("errorBox");
       errorBox.style.display = "none";
       errorBox.textContent = "";
@@ -154,9 +238,11 @@
         rainfall: parseFloat(document.getElementById("rainfall").value)
       };
 
+      // Validate
       for (const [k, v] of Object.entries(formData)) {
         if (isNaN(v)) {
-          errorBox.textContent = `Please enter a valid value for ${k}.`;
+          const fieldLabel = FIELD_NAMES_FOR_ERR[lang][k] || k;
+          errorBox.textContent = STRINGS[lang].err_field(fieldLabel);
           errorBox.style.display = "block";
           return;
         }
@@ -174,11 +260,14 @@
         const data = await response.json();
         if (data.error) throw new Error(data.error);
 
+        // Persist results & language (already stored)
         localStorage.setItem("cropResults", JSON.stringify(data.predictions));
+
+        // Go to results page (server route)
         window.location.href = "/results";
       } catch (err) {
         console.error("Prediction error:", err);
-        errorBox.textContent = "Error fetching crop recommendations. Please try again.";
+        errorBox.textContent = STRINGS[savedLang].err_fetch;
         errorBox.style.display = "block";
       }
     });

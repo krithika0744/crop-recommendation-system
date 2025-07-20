@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1" />
   <title>CropWise - Recommendations</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
       --green: #1DA246;
@@ -92,29 +96,101 @@
     <span>CropWise</span>
   </div>
   <div class="action-buttons">
-    <button onclick="goBack()">← New Analysis</button>
-    <button onclick="window.print()">🖨 Print</button>
-    <button onclick="downloadPDF()">📄 Download PDF</button>
-    <select id="languageToggle" class="lang-toggle">
-      <option value="all">Show All</option>
+    <button id="btnNew" onclick="goBack()">← New Analysis</button>
+    <button id="btnPrint" onclick="window.print()">🖨 Print</button>
+    <button id="btnPDF" onclick="downloadPDF()">📄 Download PDF</button>
+    <select id="language" class="lang-toggle" aria-label="Language select">
       <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="te">Telugu</option>
+      <option value="hi">हिंदी</option>
+      <option value="te">తెలుగు</option>
     </select>
   </div>
 </header>
 
 <main>
-  <h2>Your Crop Recommendations</h2>
+  <h2 id="resultsHeading">Your Crop Recommendations</h2>
   <div id="resultsContainer" class="card-grid"></div>
 </main>
 
-<div class="footer">© 2025 CropWise — Empowering farmers with intelligent crop selection.</div>
+<div class="footer" id="footerText">© 2025 CropWise — Empowering farmers with intelligent crop selection.</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   const API_BASE = "https://crop-recommendation-system-bd1n.onrender.com";
 
+  /* ----------------------------------------------------
+   * TRANSLATIONS
+   * -------------------------------------------------- */
+  const STRINGS = {
+    en: {
+      new_analysis: "← New Analysis",
+      print: "🖨 Print",
+      download: "📄 Download PDF",
+      heading: "Your Crop Recommendations",
+      season: "Season",
+      yield: "Expected Yield",
+      price: "Market Price",
+      advantages: "Advantages",
+      considerations: "Considerations",
+      no_preds: "No predictions to display.",
+      footer: "© 2025 CropWise — Empowering farmers with intelligent crop selection."
+    },
+    hi: {
+      new_analysis: "← नया विश्लेषण",
+      print: "🖨 प्रिंट",
+      download: "📄 पीडीएफ डाउनलोड करें",
+      heading: "आपकी फसल सिफारिशें",
+      season: "मौसम",
+      yield: "अनुमानित उपज",
+      price: "बाजार मूल्य",
+      advantages: "लाभ",
+      considerations: "सावधानियाँ",
+      no_preds: "दिखाने के लिए कोई सिफारिश नहीं।",
+      footer: "© 2025 CropWise — बुद्धिमान फसल चयन से किसानों को सशक्त बनाना।"
+    },
+    te: {
+      new_analysis: "← కొత్త విశ్లేషణ",
+      print: "🖨 ముద్రణ",
+      download: "📄 PDF డౌన్‌లోడ్",
+      heading: "మీ పంట సిఫార్సులు",
+      season: "సీజన్",
+      yield: "అంచనా దిగుబడి",
+      price: "మార్కెట్ ధర",
+      advantages: "ప్రయోజనాలు",
+      considerations: "జాగ్రత్తలు",
+      no_preds: "చూపించడానికి సిఫార్సులు లేవు.",
+      footer: "© 2025 CropWise — తెలివైన పంట ఎంపికతో రైతులను సాధికారం చేయడం."
+    }
+  };
+
+  /* ----------------------------------------------------
+   * Apply UI Language
+   * -------------------------------------------------- */
+  const langSelect = document.getElementById("language");
+  const savedLang = localStorage.getItem("language") || "en";
+  langSelect.value = savedLang;
+  applyUILanguage(savedLang);
+
+  langSelect.addEventListener("change", () => {
+    const lang = langSelect.value;
+    localStorage.setItem("language", lang);
+    applyUILanguage(lang);
+    // re-render results so section titles change
+    renderResults(window._preds || [], lang);
+  });
+
+  function applyUILanguage(lang) {
+    const S = STRINGS[lang];
+    document.getElementById("btnNew").textContent = S.new_analysis;
+    document.getElementById("btnPrint").textContent = S.print;
+    document.getElementById("btnPDF").textContent = S.download;
+    document.getElementById("resultsHeading").textContent = S.heading;
+    document.getElementById("footerText").textContent = S.footer;
+  }
+
+  /* ----------------------------------------------------
+   * Utilities
+   * -------------------------------------------------- */
   function getBgForMatch(match) {
     const v = typeof match === "string" ? parseFloat(match) : match;
     if (v >= 85) return "#e8f9f0";
@@ -134,10 +210,14 @@
   }
   function goBack() { window.location.href = "/"; }
 
-  function renderResults(predictions, langMode) {
+  /* ----------------------------------------------------
+   * Render Cards
+   * -------------------------------------------------- */
+  function renderResults(predictions, lang) {
     const container = document.getElementById("resultsContainer");
+    const S = STRINGS[lang];
     if (!Array.isArray(predictions) || predictions.length === 0) {
-      container.innerHTML = "<p style='color:red;text-align:center;'>No predictions to display.</p>";
+      container.innerHTML = `<p style="color:red;text-align:center;">${S.no_preds}</p>`;
       return;
     }
 
@@ -155,10 +235,8 @@
       const titleHi = crop.name_hi || "";
       const titleTe = crop.name_te || "";
 
-      let subNames = "";
-      if (langMode === "hi") subNames = titleHi;
-      else if (langMode === "te") subNames = titleTe;
-      else if (langMode === "all") subNames = `${titleHi ? "(" + titleHi + ")" : ""} ${titleTe ? "| " + titleTe : ""}`;
+      // Always show local names below English to aid recognition
+      const subNames = [titleHi, titleTe].filter(Boolean).join(" | ");
 
       return `
         <div class="crop-card">
@@ -170,16 +248,16 @@
                 <div class="sub-names">${subNames}</div>
               </div>
               <div class="match-percent" style="background-color:${getBgForMatch(matchNum)};color:${getTextForMatch(matchNum)};">
-                ${matchNum.toFixed(1)}%
+                ${isNaN(matchNum) ? "—" : matchNum.toFixed(1) + "%"}
               </div>
             </div>
-            <div class="section"><strong>Season:</strong> ${season}</div>
-            <div class="section"><strong>Expected Yield:</strong> ${yieldTxt}</div>
-            <div class="section"><strong>Market Price:</strong> ${priceTxt}</div>
-            <div class="section"><strong>✔ Advantages:</strong>
+            <div class="section"><strong>${S.season}:</strong> ${season}</div>
+            <div class="section"><strong>${S.yield}:</strong> ${yieldTxt}</div>
+            <div class="section"><strong>${S.price}:</strong> ${priceTxt}</div>
+            <div class="section"><strong>✔ ${S.advantages}:</strong>
               ${advList.map(a => `<div class="advantages">${a}</div>`).join("")}
             </div>
-            <div class="section"><strong>⚠ Considerations:</strong>
+            <div class="section"><strong>⚠ ${S.considerations}:</strong>
               ${conList.map(c => `<div class="considerations">${c}</div>`).join("")}
             </div>
           </div>
@@ -190,18 +268,22 @@
     container.innerHTML = cardsHtml;
   }
 
+  /* ----------------------------------------------------
+   * Init
+   * -------------------------------------------------- */
   window.addEventListener("DOMContentLoaded", () => {
     const raw = localStorage.getItem("cropResults");
-    if (!raw) return;
     let preds = [];
-    try { preds = JSON.parse(raw); } catch (err) { console.error("Failed to parse cropResults:", err); }
-    renderResults(preds, "all");
-
-    document.getElementById("languageToggle").addEventListener("change", (e) => {
-      renderResults(preds, e.target.value);
-    });
+    if (raw) {
+      try { preds = JSON.parse(raw); } catch (err) { console.error("Failed to parse cropResults:", err); }
+    }
+    window._preds = preds; // store globally for re-render
+    renderResults(preds, savedLang);
   });
 
+  /* ----------------------------------------------------
+   * PDF Download
+   * -------------------------------------------------- */
   async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
