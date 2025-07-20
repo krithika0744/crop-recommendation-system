@@ -3,9 +3,17 @@
     "name_hi": "धान",
     "name_te": "బియ్యం",
     "image_url": "/static/images/rice.jpg",
-    "expected_yield": "4–6 tons/hectare",
+    "expected_yield": {
+      "en": "4–6 tons/hectare",
+      "hi": "4–6 टन/हेक्टेयर",
+      "te": "4–6 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹20–25/kg",
-    "best_season": "Kharif",
+    "best_season": {
+      "en": "Kharif",
+      "hi": "खरीफ",
+      "te": "ఖరీఫ్"
+    },
     "advantages": {
       "en": ["High water availability", "Suitable soil pH", "Optimal temperature"],
       "hi": ["अधिक जल उपलब्धता", "उपयुक्त मृदा pH", "अनुकूल तापमान"],
@@ -21,9 +29,17 @@
     "name_hi": "गेहूँ",
     "name_te": "గోధుమలు",
     "image_url": "/static/images/wheat.jpg",
-    "expected_yield": "3–4 tons/hectare",
+    "expected_yield": {
+      "en": "3–4 tons/hectare",
+      "hi": "3–4 टन/हेक्टेयर",
+      "te": "3–4 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹18–22/kg",
-    "best_season": "Rabi",
+    "best_season": {
+      "en": "Rabi",
+      "hi": "रबी",
+      "te": "రబీ"
+    },
     "advantages": {
       "en": ["Good soil nutrients", "Suitable temperature", "Lower water requirement"],
       "hi": ["अच्छे मृदा पोषक तत्व", "उपयुक्त तापमान", "कम जल आवश्यकता"],
@@ -39,9 +55,17 @@
     "name_hi": "मकई",
     "name_te": "మొక్కజొన్న",
     "image_url": "/static/images/maize.jpg",
-    "expected_yield": "2.5–3.5 tons/hectare",
+    "expected_yield": {
+      "en": "2.5–3.5 tons/hectare",
+      "hi": "2.5–3.5 टन/हेक्टेयर",
+      "te": "2.5–3.5 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹15–20/kg",
-    "best_season": "Kharif",
+    "best_season": {
+      "en": "Kharif",
+      "hi": "खरीफ",
+      "te": "ఖరీఫ్"
+    },
     "advantages": {
       "en": ["Adaptable to varied soils", "Moderate water needs", "Good market demand"],
       "hi": ["विभिन्न मिट्टियों में अनुकूल", "मध्यम जल आवश्यकता", "अच्छी बाजार मांग"],
@@ -57,9 +81,17 @@
     "name_hi": "चना",
     "name_te": "శనగలు",
     "image_url": "/static/images/chickpea.jpg",
-    "expected_yield": "1–2 tons/hectare",
+    "expected_yield": {
+      "en": "1–2 tons/hectare",
+      "hi": "1–2 टन/हेक्टेयर",
+      "te": "1–2 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹45–60/kg",
-    "best_season": "Rabi",
+    "best_season": {
+      "en": "Rabi",
+      "hi": "रबी",
+      "te": "రబీ"
+    },
     "advantages": {
       "en": ["Low water requirement", "Improves soil fertility", "Drought-resistant pulse"],
       "hi": ["कम जल आवश्यकता", "मृदा उर्वरता में सुधार", "सूखा सहनशील दाल"],
@@ -75,9 +107,17 @@
     "name_hi": "अरहर",
     "name_te": "కందిపప్పు",
     "image_url": "/static/images/pigeonpea.jpg",
-    "expected_yield": "1–3 tons/hectare",
+    "expected_yield": {
+      "en": "1–3 tons/hectare",
+      "hi": "1–3 टन/हेक्टेयर",
+      "te": "1–3 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹50–60/kg",
-    "best_season": "Kharif",
+    "best_season": {
+      "en": "Kharif",
+      "hi": "खरीफ",
+      "te": "ఖరీఫ్"
+    },
     "advantages": {
       "en": ["Deep-rooted & drought-resistant", "Nitrogen-fixing legume", "High protein pulse"],
       "hi": ["गहरी जड़ें और सूखा सहनशील", "नाइट्रोजन स्थिरीकरण वाली दाल", "उच्च प्रोटीन युक्त"],
@@ -93,9 +133,17 @@
     "name_hi": "मटकी",
     "name_te": "బొబ్బర్లు (మోత పప్పు)",
     "image_url": "/static/images/mothbeans.jpg",
-    "expected_yield": "0.5–1.2 tons/hectare",
+    "expected_yield": {
+      "en": "0.5–1.2 tons/hectare",
+      "hi": "0.5–1.2 टन/हेक्टेयर",
+      "te": "0.5–1.2 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹55–70/kg",
-    "best_season": "Kharif (arid zones)",
+    "best_season": {
+      "en": "Kharif (arid zones)",
+      "hi": "खरीफ (शुष्क क्षेत्र)",
+      "te": "ఖరీఫ్ (ఎండ ప్రాంతాలు)"
+    },
     "advantages": {
       "en": ["Thrives in poor, sandy soils", "Highly drought tolerant", "Short duration; good for low-input farming"],
       "hi": ["कमजोर रेतीली मिट्टी में उगती है", "अत्यधिक सूखा सहनशील", "कम अवधि; कम लागत वाली खेती के लिए अच्छी"],
@@ -111,9 +159,17 @@
     "name_hi": "मूंग",
     "name_te": "పెసర్లు",
     "image_url": "/static/images/mungbean.jpg",
-    "expected_yield": "0.8–1.2 tons/hectare",
+    "expected_yield": {
+      "en": "0.8–1.2 tons/hectare",
+      "hi": "0.8–1.2 टन/हेक्टेयर",
+      "te": "0.8–1.2 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹60–80/kg",
-    "best_season": "Summer / Rabi",
+    "best_season": {
+      "en": "Summer / Rabi",
+      "hi": "गर्मी / रबी",
+      "te": "వేసవి / రబీ"
+    },
     "advantages": {
       "en": ["Short duration crop", "Improves soil fertility", "Strong market demand"],
       "hi": ["कम अवधि की फसल", "मृदा उर्वरता में सुधार", "मजबूत बाजार मांग"],
@@ -129,9 +185,17 @@
     "name_hi": "उड़द",
     "name_te": "మినప పప్పు",
     "image_url": "/static/images/blackgram.jpg",
-    "expected_yield": "1–1.5 tons/hectare",
+    "expected_yield": {
+      "en": "1–1.5 tons/hectare",
+      "hi": "1–1.5 टन/हेक्टेयर",
+      "te": "1–1.5 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹70–90/kg",
-    "best_season": "Kharif / Rabi",
+    "best_season": {
+      "en": "Kharif / Rabi",
+      "hi": "खरीफ / रबी",
+      "te": "ఖరీఫ్ / రబీ"
+    },
     "advantages": {
       "en": ["Improves soil health", "Short duration", "Excellent for crop rotation"],
       "hi": ["मृदा स्वास्थ्य में सुधार", "कम अवधि", "फसल चक्र के लिए उत्कृष्ट"],
@@ -147,9 +211,17 @@
     "name_hi": "मसूर",
     "name_te": "మసూర్ పప్పు",
     "image_url": "/static/images/lentil.jpg",
-    "expected_yield": "1–1.2 tons/hectare",
+    "expected_yield": {
+      "en": "1–1.2 tons/hectare",
+      "hi": "1–1.2 टन/हेक्टेयर",
+      "te": "1–1.2 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹50–65/kg",
-    "best_season": "Rabi",
+    "best_season": {
+      "en": "Rabi",
+      "hi": "रबी",
+      "te": "రబీ"
+    },
     "advantages": {
       "en": ["Cold-tolerant winter pulse", "Good dietary protein", "Improves soil health"],
       "hi": ["ठंड सहनशील शीतकालीन दाल", "अच्छा आहार प्रोटीन", "मृदा स्वास्थ्य में सुधार"],
@@ -161,13 +233,68 @@
       "te": ["పువ్వుల సమయంలో తేమకు సున్నితమైనది", "ప్రారంభ వృద్ధి నెమ్మదిగా; కలుపు నియంత్రణ అవసరం"]
     }
   },
+  "kidneybeans": {
+    "name_hi": "राजमा",
+    "name_te": "రాజ్మా",
+    "image_url": "/static/images/kidneybeans.jpg",
+    "expected_yield": {
+      "en": "1.5–2 tons/hectare",
+      "hi": "1.5–2 टन/हेक्टेयर",
+      "te": "1.5–2 టన్నులు/హెక్టారు"
+    },
+    "market_price": "₹90–120/kg",
+    "best_season": {
+      "en": "Rabi",
+      "hi": "रबी",
+      "te": "రబీ"
+    },
+    "advantages": {
+      "en": [
+        "High protein content and good dietary value",
+        "Fixes nitrogen in soil, improving fertility",
+        "Good market demand in urban areas"
+      ],
+      "hi": [
+        "उच्च प्रोटीन और पोषक तत्वों से भरपूर",
+        "मिट्टी में नाइट्रोजन फिक्स करता है, उर्वरकता बढ़ाता है",
+        "शहरी क्षेत्रों में अच्छी बाजार मांग"
+      ],
+      "te": [
+        "అధిక ప్రోటీన్ మరియు పోషక విలువ",
+        "నేలలో నైట్రోజన్ స్థిరపరచి సారాన్ని పెంచుతుంది",
+        "పట్టణ ప్రాంతాలలో మంచి మార్కెట్ డిమాండ్"
+      ]
+    },
+    "considerations": {
+      "en": [
+        "Sensitive to excess moisture or waterlogging",
+        "Needs warm temperatures for proper growth"
+      ],
+      "hi": [
+        "अधिक नमी या जलभराव के प्रति संवेदनशील",
+        "उचित वृद्धि के लिए गर्म तापमान की आवश्यकता"
+      ],
+      "te": [
+        "అధిక తేమ లేదా నీటి నిల్వకు సున్నితంగా ఉంటుంది",
+        "సరైన పెరుగుదల కోసం వేడి వాతావరణం అవసరం"
+      ]
+    }
+  },
   "pomegranate": {
     "name_hi": "अनार",
     "name_te": "దానిమ్మ",
     "image_url": "/static/images/pomegranate.jpg",
-    "expected_yield": "10–15 tons/hectare",
+    "expected_yield": {
+      "en": "10–15 tons/hectare",
+      "hi": "10–15 टन/हेक्टेयर",
+      "te": "10–15 టన్నులు/హెక్టారు"
+    },
     "market_price": "₹80–150/kg",
-    "best_season": "All year (best flushes: Jan–Mar, Jul–Sep)",
+    "best_season": {
+      "en": "All year (best flushes: Jan–Mar, Jul–Sep)",
+      "hi": "पूरे वर्ष (सर्वोत्तम फ्लश: जनवरी–मार्च, जुलाई–सितंबर)",
+      "te": "మొత్తం సంవత్సరం (ఉత్తమ ఫ్లష్: జన–మార్, జూలై–సెప్)"
+    },
     "advantages": {
       "en": ["High market value fruit", "Tolerates dry conditions", "Long post-harvest shelf life"],
       "hi": ["उच्च बाजार मूल्य वाला फल", "सूखी परिस्थितियों को सहन करता है", "कटाई के बाद लंबी शेल्फ लाइफ"],

@@ -150,11 +150,11 @@ def format_prediction(crop_name, prob, info):
         "match": f"{round(prob * 100, 2)}%",
         "probability": prob,
         "image_url": info.get("image_url", ""),
-        "expected_yield": info.get("expected_yield", "N/A"),
+        "expected_yield": info.get("expected_yield", {"en": "N/A", "hi": "N/A", "te": "N/A"}),
         "market_price": info.get("market_price", "N/A"),
-        "season": info.get("best_season", "N/A"),
-        "advantages": info.get("advantages", []),
-        "considerations": info.get("considerations", []),
+        "season": info.get("best_season", {"en": "N/A", "hi": "N/A", "te": "N/A"}),
+        "advantages": info.get("advantages", {"en": [], "hi": [], "te": []}),
+        "considerations": info.get("considerations", {"en": [], "hi": [], "te": []}),
         "name_hi": info.get("name_hi", ""),
         "name_te": info.get("name_te", "")
     }

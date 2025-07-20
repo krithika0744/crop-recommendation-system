@@ -42,6 +42,13 @@
       transition: all 0.2s ease;
     }
     .action-buttons button:hover { background-color: var(--green); color: white; }
+    .lang-toggle {
+      margin-left: 10px;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
     main { max-width: 1000px; margin: 0 auto; padding: 20px; }
     h2 { color: var(--green); text-align: center; margin-top: 10px; }
     .card-grid {
@@ -85,47 +92,75 @@
     <span>CropWise</span>
   </div>
   <div class="action-buttons">
-    <button id="btnBack">← New Analysis</button>
-    <button onclick="window.print()">🖨 <span id="printBtnTxt">Print</span></button>
-    <button onclick="downloadPDF()">📄 <span id="pdfBtnTxt">Download PDF</span></button>
+    <button onclick="goBack()">← <span id="btnNewAnalysis">New Analysis</span></button>
+    <button onclick="window.print()">🖨 <span id="btnPrint">Print</span></button>
+    <button onclick="downloadPDF()">📄 <span id="btnPDF">Download PDF</span></button>
+    <select id="languageToggle" class="lang-toggle">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+      <option value="te">తెలుగు</option>
+    </select>
   </div>
 </header>
 
 <main>
-  <h2 id="mainHeading">Your Crop Recommendations</h2>
+  <h2 id="resultsHeading">Your Crop Recommendations</h2>
   <div id="resultsContainer" class="card-grid"></div>
 </main>
 
-<div class="footer" id="footerTxt">© 2025 CropWise — Empowering farmers with intelligent crop selection.</div>
+<div class="footer" id="footerText">© 2025 CropWise — Empowering farmers with intelligent crop selection.</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   const API_BASE = "https://crop-recommendation-system-bd1n.onrender.com";
-  const lang = localStorage.getItem("language") || "en";
 
-  const TEXTS = {
-    en: { mainHeading: "Your Crop Recommendations", newAnalysis: "← New Analysis", print: "Print", pdf: "Download PDF", advantages: "✔ Advantages:", considerations: "⚠ Considerations:", season: "Season:", yield: "Expected Yield:", price: "Market Price:", noPred: "No predictions to display.", footer: "© 2025 CropWise — Empowering farmers with intelligent crop selection." },
-    hi: { mainHeading: "आपकी फसल सिफारिशें", newAnalysis: "← नया विश्लेषण", print: "प्रिंट", pdf: "पीडीएफ डाउनलोड करें", advantages: "✔ लाभ:", considerations: "⚠ विचार:", season: "मौसम:", yield: "अनुमानित पैदावार:", price: "बाजार मूल्य:", noPred: "दिखाने के लिए कोई सिफारिश नहीं।", footer: "© 2025 CropWise — किसानों को बुद्धिमान फसल चयन से सशक्त बनाना।" },
-    te: { mainHeading: "మీ పంట సిఫారసులు", newAnalysis: "← కొత్త విశ్లేషణ", print: "ప్రింట్", pdf: "PDF డౌన్లోడ్", advantages: "✔ ప్రయోజనాలు:", considerations: "⚠ పరిగణించవలసిన అంశాలు:", season: "సీజన్:", yield: "అంచనా దిగుబడి:", price: "మార్కెట్ ధర:", noPred: "ప్రదర్శించడానికి ఏ సిఫారసులు లేవు.", footer: "© 2025 CropWise — రైతులను తెలివైన పంట ఎంపికతో శక్తివంతం చేస్తుంది." }
+  const STRINGS = {
+    en: {
+      heading: "Your Crop Recommendations",
+      new_analysis: "New Analysis",
+      print: "Print",
+      pdf: "Download PDF",
+      season: "Season",
+      yield: "Expected Yield",
+      price: "Market Price",
+      advantages: "✔ Advantages",
+      considerations: "⚠ Considerations",
+      footer: "© 2025 CropWise — Empowering farmers with intelligent crop selection."
+    },
+    hi: {
+      heading: "आपकी फसल सिफारिशें",
+      new_analysis: "नई विश्लेषण",
+      print: "प्रिंट",
+      pdf: "पीडीएफ डाउनलोड करें",
+      season: "मौसम",
+      yield: "अपेक्षित उपज",
+      price: "बाज़ार मूल्य",
+      advantages: "✔ फायदे",
+      considerations: "⚠ विचारणीय",
+      footer: "© 2025 CropWise — बुद्धिमान फसल चयन के साथ किसानों को सशक्त करना।"
+    },
+    te: {
+      heading: "మీ పంట సిఫార్సులు",
+      new_analysis: "కొత్త విశ్లేషణ",
+      print: "ప్రింట్",
+      pdf: "PDF డౌన్‌లోడ్",
+      season: "సీజన్",
+      yield: "అంచనా దిగుబడి",
+      price: "మార్కెట్ ధర",
+      advantages: "✔ ప్రయోజనాలు",
+      considerations: "⚠ పరిగణించవలసినవి",
+      footer: "© 2025 CropWise — తెలివైన పంట ఎంపికతో రైతులను శక్తివంతం చేయడం."
+    }
   };
 
-  function translateUI() {
-    const t = TEXTS[lang];
-    document.getElementById("mainHeading").textContent = t.mainHeading;
-    document.getElementById("btnBack").textContent = t.newAnalysis;
-    document.getElementById("printBtnTxt").textContent = t.print;
-    document.getElementById("pdfBtnTxt").textContent = t.pdf;
-    document.getElementById("footerTxt").textContent = t.footer;
-  }
-
   function getBgForMatch(match) {
-    const v = parseFloat(match);
+    const v = typeof match === "string" ? parseFloat(match) : match;
     if (v >= 85) return "#e8f9f0";
     if (v >= 70) return "#fff8e1";
     return "#fff0f0";
   }
   function getTextForMatch(match) {
-    const v = parseFloat(match);
+    const v = typeof match === "string" ? parseFloat(match) : match;
     if (v >= 85) return "#1DA246";
     if (v >= 70) return "#d69e00";
     return "#d13939";
@@ -135,58 +170,83 @@
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
     return API_BASE + url;
   }
-  document.getElementById("btnBack").onclick = () => window.location.href = "/";
+  function goBack() { window.location.href = "/"; }
 
-  function renderResults(predictions) {
+  function applyLanguage(lang) {
+    document.getElementById("resultsHeading").textContent = STRINGS[lang].heading;
+    document.getElementById("btnNewAnalysis").textContent = STRINGS[lang].new_analysis;
+    document.getElementById("btnPrint").textContent = STRINGS[lang].print;
+    document.getElementById("btnPDF").textContent = STRINGS[lang].pdf;
+    document.getElementById("footerText").textContent = STRINGS[lang].footer;
+
+    const raw = localStorage.getItem("cropResults");
+    if (!raw) return;
+    let preds = [];
+    try { preds = JSON.parse(raw); } catch (err) { console.error("Failed to parse cropResults:", err); }
+    renderResults(preds, lang);
+  }
+
+  function renderResults(predictions, lang) {
     const container = document.getElementById("resultsContainer");
-    const t = TEXTS[lang];
     if (!Array.isArray(predictions) || predictions.length === 0) {
-      container.innerHTML = `<p style='color:red;text-align:center;'>${t.noPred}</p>`;
+      container.innerHTML = "<p style='color:red;text-align:center;'>No predictions to display.</p>";
       return;
     }
 
-    container.innerHTML = predictions.map((crop) => {
-      const matchNum = parseFloat(crop.match) || 0;
+    const cardsHtml = predictions.map((crop) => {
+      const matchVal = crop.match || "0%";
+      const matchNum = parseFloat(matchVal);
+      const season = (crop.season?.[lang]) || crop.season?.en || "N/A";
+      const yieldTxt = (crop.expected_yield?.[lang]) || crop.expected_yield?.en || "N/A";
+      const priceTxt = crop.market_price || "N/A";
+      const advList = crop.advantages?.[lang] || [];
+      const conList = crop.considerations?.[lang] || [];
       const imgSrc = resolveImage(crop.image_url);
-      const advList = (crop.advantages && crop.advantages[lang]) ? crop.advantages[lang] : [];
-      const conList = (crop.considerations && crop.considerations[lang]) ? crop.considerations[lang] : [];
 
-      let cropTitle = crop.crop || "Unknown";
-      if (lang === "hi") cropTitle = crop.name_hi || cropTitle;
-      if (lang === "te") cropTitle = crop.name_te || cropTitle;
+      const titleEn = crop.crop || "Unknown";
+      const titleHi = crop.name_hi || "";
+      const titleTe = crop.name_te || "";
+
+      const titleLang = lang === "hi" ? titleHi : lang === "te" ? titleTe : titleEn;
 
       return `
         <div class="crop-card">
-          <img src="${imgSrc}" alt="${cropTitle} image" />
+          <img src="${imgSrc}" alt="${titleEn} image" />
           <div class="crop-content">
             <div class="crop-header">
-              <h3>${cropTitle}</h3>
+              <div>
+                <h3>${titleLang}</h3>
+              </div>
               <div class="match-percent" style="background-color:${getBgForMatch(matchNum)};color:${getTextForMatch(matchNum)};">
                 ${matchNum.toFixed(1)}%
               </div>
             </div>
-            <div class="section"><strong>${t.season}</strong> ${crop.season || "N/A"}</div>
-            <div class="section"><strong>${t.yield}</strong> ${crop.expected_yield || "N/A"}</div>
-            <div class="section"><strong>${t.price}</strong> ${crop.market_price || "N/A"}</div>
-            <div class="section"><strong>${t.advantages}</strong>
+            <div class="section"><strong>${STRINGS[lang].season}:</strong> ${season}</div>
+            <div class="section"><strong>${STRINGS[lang].yield}:</strong> ${yieldTxt}</div>
+            <div class="section"><strong>${STRINGS[lang].price}:</strong> ${priceTxt}</div>
+            <div class="section"><strong>${STRINGS[lang].advantages}:</strong>
               ${advList.map(a => `<div class="advantages">${a}</div>`).join("")}
             </div>
-            <div class="section"><strong>${t.considerations}</strong>
+            <div class="section"><strong>${STRINGS[lang].considerations}:</strong>
               ${conList.map(c => `<div class="considerations">${c}</div>`).join("")}
             </div>
           </div>
         </div>
       `;
     }).join("");
+
+    container.innerHTML = cardsHtml;
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    translateUI();
-    const raw = localStorage.getItem("cropResults");
-    if (!raw) return;
-    let preds = [];
-    try { preds = JSON.parse(raw); } catch (err) { console.error("Failed to parse cropResults:", err); }
-    renderResults(preds);
+    const lang = localStorage.getItem("language") || "en";
+    document.getElementById("languageToggle").value = lang;
+    applyLanguage(lang);
+
+    document.getElementById("languageToggle").addEventListener("change", (e) => {
+      localStorage.setItem("language", e.target.value);
+      applyLanguage(e.target.value);
+    });
   });
 
   async function downloadPDF() {
