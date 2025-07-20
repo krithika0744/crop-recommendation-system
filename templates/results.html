@@ -214,12 +214,60 @@
    * Render Cards
    * -------------------------------------------------- */
   function renderResults(predictions, lang) {
-    const container = document.getElementById("resultsContainer");
-    const S = STRINGS[lang];
-    if (!Array.isArray(predictions) || predictions.length === 0) {
-      container.innerHTML = `<p style="color:red;text-align:center;">${S.no_preds}</p>`;
-      return;
-    }
+  const container = document.getElementById("resultsContainer");
+  const S = STRINGS[lang];
+  if (!Array.isArray(predictions) || predictions.length === 0) {
+    container.innerHTML = `<p style="color:red;text-align:center;">${S.no_preds}</p>`;
+    return;
+  }
+
+  const cardsHtml = predictions.map((crop) => {
+    const matchVal = crop.match || crop.match_percentage || 0;
+    const matchNum = typeof matchVal === "string" ? parseFloat(matchVal) : matchVal;
+    const season = crop.season || "N/A";
+    const yieldTxt = crop.expected_yield || "N/A";
+    const priceTxt = crop.market_price || "N/A";
+
+    // Get translated advantages & considerations
+    const advList = (crop.advantages && crop.advantages[lang]) ? crop.advantages[lang] : crop.advantages?.en || [];
+    const conList = (crop.considerations && crop.considerations[lang]) ? crop.considerations[lang] : crop.considerations?.en || [];
+
+    const imgSrc = resolveImage(crop.image_url);
+    const titleEn = crop.crop || "Unknown";
+    const titleHi = crop.name_hi || "";
+    const titleTe = crop.name_te || "";
+    const subNames = [titleHi, titleTe].filter(Boolean).join(" | ");
+
+    return `
+      <div class="crop-card">
+        <img src="${imgSrc}" alt="${titleEn} image" />
+        <div class="crop-content">
+          <div class="crop-header">
+            <div>
+              <h3>${titleEn}</h3>
+              <div class="sub-names">${subNames}</div>
+            </div>
+            <div class="match-percent" style="background-color:${getBgForMatch(matchNum)};color:${getTextForMatch(matchNum)};">
+              ${isNaN(matchNum) ? "—" : matchNum.toFixed(1) + "%"}
+            </div>
+          </div>
+          <div class="section"><strong>${S.season}:</strong> ${season}</div>
+          <div class="section"><strong>${S.yield}:</strong> ${yieldTxt}</div>
+          <div class="section"><strong>${S.price}:</strong> ${priceTxt}</div>
+          <div class="section"><strong>✔ ${S.advantages}:</strong>
+            ${advList.map(a => `<div class="advantages">${a}</div>`).join("")}
+          </div>
+          <div class="section"><strong>⚠ ${S.considerations}:</strong>
+            ${conList.map(c => `<div class="considerations">${c}</div>`).join("")}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = cardsHtml;
+}
+
 
     const cardsHtml = predictions.map((crop) => {
       const matchVal = crop.match || crop.match_percentage || 0;

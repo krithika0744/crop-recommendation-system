@@ -6,15 +6,16 @@
     "expected_yield": "4–6 tons/hectare",
     "market_price": "₹20–25/kg",
     "best_season": "Kharif",
-    "advantages": [
-      "High water availability",
-      "Suitable soil pH",
-      "Optimal temperature"
-    ],
-    "considerations": [
-      "Requires consistent water",
-      "Labor intensive"
-    ]
+    "advantages": {
+      "en": ["High water availability", "Suitable soil pH", "Optimal temperature"],
+      "hi": ["अधिक जल उपलब्धता", "उपयुक्त मृदा pH", "अनुकूल तापमान"],
+      "te": ["అధిక నీటి లభ్యత", "సరైన నేల pH", "ఉత్తమ ఉష్ణోగ్రత"]
+    },
+    "considerations": {
+      "en": ["Requires consistent water", "Labor intensive"],
+      "hi": ["लगातार पानी की आवश्यकता", "श्रम गहन"],
+      "te": ["నిరంతర నీటి అవసరం", "కూలీలపై ఆధారపడి ఉంటుంది"]
+    }
   },
   "wheat": {
     "name_hi": "गेहूँ",
@@ -23,15 +24,16 @@
     "expected_yield": "3–4 tons/hectare",
     "market_price": "₹18–22/kg",
     "best_season": "Rabi",
-    "advantages": [
-      "Good soil nutrients",
-      "Suitable temperature",
-      "Lower water requirement"
-    ],
-    "considerations": [
-      "pH slightly high",
-      "Market price fluctuation"
-    ]
+    "advantages": {
+      "en": ["Good soil nutrients", "Suitable temperature", "Lower water requirement"],
+      "hi": ["अच्छे मृदा पोषक तत्व", "उपयुक्त तापमान", "कम जल आवश्यकता"],
+      "te": ["మంచి నేల పోషకాలు", "సరైన ఉష్ణోగ్రత", "తక్కువ నీటి అవసరం"]
+    },
+    "considerations": {
+      "en": ["pH slightly high", "Market price fluctuation"],
+      "hi": ["pH थोड़ा अधिक", "बाजार मूल्य में उतार-चढ़ाव"],
+      "te": ["pH కొంచెం ఎక్కువ", "మార్కెట్ ధరల్లో మార్పులు"]
+    }
   },
   "maize": {
     "name_hi": "मकई",
@@ -40,15 +42,16 @@
     "expected_yield": "2.5–3.5 tons/hectare",
     "market_price": "₹15–20/kg",
     "best_season": "Kharif",
-    "advantages": [
-      "Adaptable to varied soils",
-      "Moderate water needs",
-      "Good market demand"
-    ],
-    "considerations": [
-      "Sensitive to pests",
-      "Needs balanced fertilization"
-    ]
+    "advantages": {
+      "en": ["Adaptable to varied soils", "Moderate water needs", "Good market demand"],
+      "hi": ["विभिन्न मिट्टियों में अनुकूल", "मध्यम जल आवश्यकता", "अच्छी बाजार मांग"],
+      "te": ["వివిధ మట్టుల్లో సులభంగా పెరుగుతుంది", "మోస్తరు నీటి అవసరం", "మంచి మార్కెట్ డిమాండ్"]
+    },
+    "considerations": {
+      "en": ["Sensitive to pests", "Needs balanced fertilization"],
+      "hi": ["कीटों के प्रति संवेदनशील", "संतुलित उर्वरक की आवश्यकता"],
+      "te": ["పురుగులకు సున్నితమైనది", "సమతుల్య ఎరువులు అవసరం"]
+    }
   },
   "chickpea": {
     "name_hi": "चना",
@@ -57,15 +60,16 @@
     "expected_yield": "1–2 tons/hectare",
     "market_price": "₹45–60/kg",
     "best_season": "Rabi",
-    "advantages": [
-      "Low water requirement",
-      "Improves soil fertility",
-      "Drought-resistant pulse"
-    ],
-    "considerations": [
-      "Slow early growth",
-      "Wilt disease risk"
-    ]
+    "advantages": {
+      "en": ["Low water requirement", "Improves soil fertility", "Drought-resistant pulse"],
+      "hi": ["कम जल आवश्यकता", "मृदा उर्वरता में सुधार", "सूखा सहनशील दाल"],
+      "te": ["తక్కువ నీటి అవసరం", "మట్టిసారం పెరుగుతుంది", "ఎండలకు ప్రతిఘటన గల పప్పు"]
+    },
+    "considerations": {
+      "en": ["Slow early growth", "Wilt disease risk"],
+      "hi": ["धीमी प्रारंभिक वृद्धि", "मुरझाने की बीमारी का खतरा"],
+      "te": ["మొదటి వృద్ధి నెమ్మదిగా", "వాడిపోవు వ్యాధి ప్రమాదం"]
+    }
   },
   "pigeonpeas": {
     "name_hi": "अरहर",
@@ -74,15 +78,16 @@
     "expected_yield": "1–3 tons/hectare",
     "market_price": "₹50–60/kg",
     "best_season": "Kharif",
-    "advantages": [
-      "Deep-rooted & drought-resistant",
-      "Nitrogen-fixing legume",
-      "High protein pulse"
-    ],
-    "considerations": [
-      "Long duration crop",
-      "Frost-sensitive"
-    ]
+    "advantages": {
+      "en": ["Deep-rooted & drought-resistant", "Nitrogen-fixing legume", "High protein pulse"],
+      "hi": ["गहरी जड़ें और सूखा सहनशील", "नाइट्रोजन स्थिरीकरण वाली दाल", "उच्च प्रोटीन युक्त"],
+      "te": ["లోతైన వేరు, ఎండలకు ప్రతిఘటన", "నైట్రోజన్ స్థిరపరిచే పప్పు", "అధిక ప్రోటీన్ పప్పు"]
+    },
+    "considerations": {
+      "en": ["Long duration crop", "Frost-sensitive"],
+      "hi": ["लंबी अवधि की फसल", "पाले के प्रति संवेदनशील"],
+      "te": ["దీర్ఘకాల పంట", "మంచుకు సున్నితమైనది"]
+    }
   },
   "mothbeans": {
     "name_hi": "मटकी",
@@ -91,17 +96,16 @@
     "expected_yield": "0.5–1.2 tons/hectare",
     "market_price": "₹55–70/kg",
     "best_season": "Kharif (arid zones)",
-    "advantages": [
-      "Thrives in poor, sandy soils",
-      "Highly drought tolerant",
-      "Short duration; good for low-input farming",
-      "Improves soil nitrogen when incorporated"
-    ],
-    "considerations": [
-      "Lower yield potential vs other pulses",
-      "Sensitive to waterlogging",
-      "Harvest timing important to avoid shattering"
-    ]
+    "advantages": {
+      "en": ["Thrives in poor, sandy soils", "Highly drought tolerant", "Short duration; good for low-input farming"],
+      "hi": ["कमजोर रेतीली मिट्टी में उगती है", "अत्यधिक सूखा सहनशील", "कम अवधि; कम लागत वाली खेती के लिए अच्छी"],
+      "te": ["పేద, ఇసుక నేలల్లో పెరుగుతుంది", "అధిక ఎండలకు ప్రతిఘటన", "తక్కువ వ్యవధి; తక్కువ ఖర్చు సాగుకు అనుకూలం"]
+    },
+    "considerations": {
+      "en": ["Lower yield potential vs other pulses", "Sensitive to waterlogging"],
+      "hi": ["अन्य दालों की तुलना में कम उपज", "पानी भराव के प्रति संवेदनशील"],
+      "te": ["ఇతర పప్పులతో పోలిస్తే తక్కువ దిగుబడి", "నీటి నిల్వకు సున్నితమైనది"]
+    }
   },
   "mungbean": {
     "name_hi": "मूंग",
@@ -110,15 +114,16 @@
     "expected_yield": "0.8–1.2 tons/hectare",
     "market_price": "₹60–80/kg",
     "best_season": "Summer / Rabi",
-    "advantages": [
-      "Short duration crop",
-      "Improves soil fertility",
-      "Strong market demand"
-    ],
-    "considerations": [
-      "Powdery mildew risk",
-      "Requires warm growing conditions"
-    ]
+    "advantages": {
+      "en": ["Short duration crop", "Improves soil fertility", "Strong market demand"],
+      "hi": ["कम अवधि की फसल", "मृदा उर्वरता में सुधार", "मजबूत बाजार मांग"],
+      "te": ["తక్కువ కాలం పంట", "మట్టిసారం పెరుగుతుంది", "మంచి మార్కెట్ డిమాండ్"]
+    },
+    "considerations": {
+      "en": ["Powdery mildew risk", "Requires warm growing conditions"],
+      "hi": ["पाउडरी फफूंदी का खतरा", "गर्म जलवायु की आवश्यकता"],
+      "te": ["పౌడరీ మిల్డ్యూ ప్రమాదం", "వేడి వాతావరణం అవసరం"]
+    }
   },
   "blackgram": {
     "name_hi": "उड़द",
@@ -127,15 +132,16 @@
     "expected_yield": "1–1.5 tons/hectare",
     "market_price": "₹70–90/kg",
     "best_season": "Kharif / Rabi",
-    "advantages": [
-      "Improves soil health",
-      "Short duration",
-      "Excellent for crop rotation"
-    ],
-    "considerations": [
-      "Waterlogging risk",
-      "Pod borer & yellow mosaic virus prone"
-    ]
+    "advantages": {
+      "en": ["Improves soil health", "Short duration", "Excellent for crop rotation"],
+      "hi": ["मृदा स्वास्थ्य में सुधार", "कम अवधि", "फसल चक्र के लिए उत्कृष्ट"],
+      "te": ["మట్టిసారం మెరుగుపరుస్తుంది", "తక్కువ వ్యవధి", "పంట మార్పిడికి అనుకూలం"]
+    },
+    "considerations": {
+      "en": ["Waterlogging risk", "Pod borer & yellow mosaic virus prone"],
+      "hi": ["पानी भराव का जोखिम", "फल छेदक और पीला मोज़ेक वायरस का खतरा"],
+      "te": ["నీటి నిల్వ ప్రమాదం", "పాడ్ బోరర్ మరియు యెల్లో మోసెయిక్ వైరస్ ప్రమాదం"]
+    }
   },
   "lentil": {
     "name_hi": "मसूर",
@@ -144,15 +150,16 @@
     "expected_yield": "1–1.2 tons/hectare",
     "market_price": "₹50–65/kg",
     "best_season": "Rabi",
-    "advantages": [
-      "Cold-tolerant winter pulse",
-      "Good dietary protein",
-      "Improves soil health"
-    ],
-    "considerations": [
-      "Moisture-sensitive at flowering",
-      "Slow early growth; weed control needed"
-    ]
+    "advantages": {
+      "en": ["Cold-tolerant winter pulse", "Good dietary protein", "Improves soil health"],
+      "hi": ["ठंड सहनशील शीतकालीन दाल", "अच्छा आहार प्रोटीन", "मृदा स्वास्थ्य में सुधार"],
+      "te": ["చలికి తట్టుకునే పప్పు", "మంచి ఆహార ప్రోటీన్", "మట్టిసారం మెరుగుపరుస్తుంది"]
+    },
+    "considerations": {
+      "en": ["Moisture-sensitive at flowering", "Slow early growth; weed control needed"],
+      "hi": ["फूल आने पर नमी संवेदनशील", "धीमी प्रारंभिक वृद्धि; खरपतवार नियंत्रण आवश्यक"],
+      "te": ["పువ్వుల సమయంలో తేమకు సున్నితమైనది", "ప్రారంభ వృద్ధి నెమ్మదిగా; కలుపు నియంత్రణ అవసరం"]
+    }
   },
   "pomegranate": {
     "name_hi": "अनार",
@@ -161,14 +168,15 @@
     "expected_yield": "10–15 tons/hectare",
     "market_price": "₹80–150/kg",
     "best_season": "All year (best flushes: Jan–Mar, Jul–Sep)",
-    "advantages": [
-      "High market value fruit",
-      "Tolerates dry conditions",
-      "Long post-harvest shelf life"
-    ],
-    "considerations": [
-      "Fruit cracking in uneven moisture",
-      "Requires regular pruning & training"
-    ]
+    "advantages": {
+      "en": ["High market value fruit", "Tolerates dry conditions", "Long post-harvest shelf life"],
+      "hi": ["उच्च बाजार मूल्य वाला फल", "सूखी परिस्थितियों को सहन करता है", "कटाई के बाद लंबी शेल्फ लाइफ"],
+      "te": ["అధిక మార్కెట్ విలువ ఉన్న పండు", "ఎండలకు తట్టుకోగలదు", "కోత తర్వాత ఎక్కువ నిల్వ కాలం"]
+    },
+    "considerations": {
+      "en": ["Fruit cracking in uneven moisture", "Requires regular pruning & training"],
+      "hi": ["असमान नमी में फल फटने का खतरा", "नियमित छंटाई और देखभाल की आवश्यकता"],
+      "te": ["అసమాన తేమలో పండు పగిలిపోవడం", "నియమిత తరిగింపు మరియు సంరక్షణ అవసరం"]
+    }
   }
 }
