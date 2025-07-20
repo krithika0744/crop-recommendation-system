@@ -81,6 +81,7 @@
   </style>
 </head>
 <body>
+
   <header>
     <div style="display: flex; align-items: center;">
       <img src="https://img.icons8.com/ios-filled/50/1DA246/leaf.png" alt="Logo">
@@ -126,6 +127,8 @@
   </main>
 
   <script>
+    const API_URL = "https://crop-recommendation-system-bd1n.onrender.com/predict";
+
     /* -------- Language persistence -------- */
     const langSelect = document.getElementById("language");
     const savedLang = localStorage.getItem("language");
@@ -160,24 +163,19 @@
       }
 
       try {
-        const response = await fetch("/predict", {
+        const response = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData)
         });
 
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status} ${response.statusText}`);
-        }
+        if (!response.ok) throw new Error(`Server error: ${response.status} ${response.statusText}`);
 
         const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
+        if (data.error) throw new Error(data.error);
 
         localStorage.setItem("cropResults", JSON.stringify(data.predictions));
-        window.location.href = "/results";  // FIXED: Redirect to FastAPI route
-
+        window.location.href = "results.html";
       } catch (err) {
         console.error("Prediction error:", err);
         errorBox.textContent = "Error fetching crop recommendations. Please try again.";
@@ -185,5 +183,6 @@
       }
     });
   </script>
+
 </body>
 </html>

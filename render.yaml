@@ -1,10 +1,9 @@
 services:
   - type: web
-    name: crop-recommendation-system
+    name: crop-recommendation
     env: python
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
     plan: free
-    region: oregon # or your region
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn crop_recommendation.app:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
-    healthCheckPath: /health

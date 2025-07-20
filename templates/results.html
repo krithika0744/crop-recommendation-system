@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CropWise - Recommendations</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -31,20 +28,9 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       flex-wrap: wrap;
     }
-    header img {
-      height: 24px;
-      margin-right: 8px;
-    }
-    header span {
-      font-weight: 600;
-      font-size: 18px;
-      color: var(--green);
-    }
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    header img { height: 24px; margin-right: 8px; }
+    header span { font-weight: 600; font-size: 18px; color: var(--green); }
+    .action-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
     .action-buttons button {
       padding: 8px 14px;
       border-radius: 6px;
@@ -55,10 +41,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    .action-buttons button:hover {
-      background-color: var(--green);
-      color: white;
-    }
+    .action-buttons button:hover { background-color: var(--green); color: white; }
     .lang-toggle {
       margin-left: 10px;
       padding: 6px;
@@ -66,16 +49,8 @@
       border: 1px solid #ccc;
       font-size: 14px;
     }
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h2 {
-      color: var(--green);
-      text-align: center;
-      margin-top: 10px;
-    }
+    main { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    h2 { color: var(--green); text-align: center; margin-top: 10px; }
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -91,69 +66,23 @@
       display: flex;
       flex-direction: column;
     }
-    .crop-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #f2f2f2;
-    }
-    .crop-content {
-      padding: 16px;
-    }
-    .crop-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .crop-header h3 {
-      margin: 0;
-      font-size: 20px;
-      color: var(--green);
-      text-transform: capitalize;
-    }
-    .sub-names {
-      font-size: 14px;
-      color: #555;
-      margin-top: 2px;
-    }
+    .crop-card img { width: 100%; height: 180px; object-fit: cover; background: #f2f2f2; }
+    .crop-content { padding: 16px; }
+    .crop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .crop-header h3 { margin: 0; font-size: 20px; color: var(--green); text-transform: capitalize; }
+    .sub-names { font-size: 14px; color: #555; margin-top: 2px; }
     .match-percent {
       padding: 4px 8px;
       border-radius: 4px;
       font-size: 12px;
       font-weight: bold;
     }
-    .section {
-      margin-top: 10px;
-      font-size: 14px;
-      line-height: 1.35;
-    }
-    .section strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #444;
-    }
-    .advantages, .considerations {
-      font-size: 14px;
-      margin: 4px 0;
-      padding-left: 0.75em;
-      text-indent: -0.75em;
-    }
-    .advantages::before {
-      content: "• ";
-      color: var(--green);
-    }
-    .considerations::before {
-      content: "• ";
-      color: #d13939;
-    }
-    .footer {
-      text-align: center;
-      font-size: 13px;
-      color: #999;
-      padding: 20px;
-      margin-top: 40px;
-    }
+    .section { margin-top: 10px; font-size: 14px; line-height: 1.35; }
+    .section strong { display: block; margin-bottom: 4px; color: #444; }
+    .advantages, .considerations { font-size: 14px; margin: 4px 0; padding-left: 0.75em; text-indent: -0.75em; }
+    .advantages::before { content: "• "; color: var(--green); }
+    .considerations::before { content: "• "; color: #d13939; }
+    .footer { text-align: center; font-size: 13px; color: #999; padding: 20px; margin-top: 40px; }
   </style>
 </head>
 <body>
@@ -163,9 +92,9 @@
     <span>CropWise</span>
   </div>
   <div class="action-buttons">
-    <button id="newAnalysisBtn" type="button">← New Analysis</button>
-    <button type="button" onclick="window.print()">🖨 Print</button>
-    <button type="button" onclick="downloadPDF()">📄 Download PDF</button>
+    <button onclick="goBack()">← New Analysis</button>
+    <button onclick="window.print()">🖨 Print</button>
+    <button onclick="downloadPDF()">📄 Download PDF</button>
     <select id="languageToggle" class="lang-toggle">
       <option value="all">Show All</option>
       <option value="en">English</option>
@@ -182,12 +111,9 @@
 
 <div class="footer">© 2025 CropWise — Empowering farmers with intelligent crop selection.</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-  // ---------------------------------------------------------
-  // Utilities
-  // ---------------------------------------------------------
-  const ORIGIN = window.location.origin;
+  const API_BASE = "https://crop-recommendation-system-bd1n.onrender.com";
 
   function getBgForMatch(match) {
     const v = typeof match === "string" ? parseFloat(match) : match;
@@ -204,20 +130,10 @@
   function resolveImage(url) {
     if (!url) return "https://via.placeholder.com/400x200?text=No+Image";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
-    // ensure leading slash
-    const path = url.startsWith("/") ? url : "/" + url;
-    return ORIGIN + path;
+    return API_BASE + url;
   }
+  function goBack() { window.location.href = "index.html"; }
 
-  function goHome() {
-    // clear predictions and return to server root (works on Render + local)
-    localStorage.removeItem("cropResults");
-    window.location.href = "/";
-  }
-
-  // ---------------------------------------------------------
-  // Render cards
-  // ---------------------------------------------------------
   function renderResults(predictions, langMode) {
     const container = document.getElementById("resultsContainer");
     if (!Array.isArray(predictions) || predictions.length === 0) {
@@ -240,16 +156,9 @@
       const titleTe = crop.name_te || "";
 
       let subNames = "";
-      if (langMode === "hi") {
-        subNames = titleHi;
-      } else if (langMode === "te") {
-        subNames = titleTe;
-      } else if (langMode === "all") {
-        const parts = [];
-        if (titleHi) parts.push("(" + titleHi + ")");
-        if (titleTe) parts.push("| " + titleTe);
-        subNames = parts.join(" ");
-      }
+      if (langMode === "hi") subNames = titleHi;
+      else if (langMode === "te") subNames = titleTe;
+      else if (langMode === "all") subNames = `${titleHi ? "(" + titleHi + ")" : ""} ${titleTe ? "| " + titleTe : ""}`;
 
       return `
         <div class="crop-card">
@@ -261,7 +170,7 @@
                 <div class="sub-names">${subNames}</div>
               </div>
               <div class="match-percent" style="background-color:${getBgForMatch(matchNum)};color:${getTextForMatch(matchNum)};">
-                ${isNaN(matchNum) ? "N/A" : matchNum.toFixed(1) + "%"}
+                ${matchNum.toFixed(1)}%
               </div>
             </div>
             <div class="section"><strong>Season:</strong> ${season}</div>
@@ -281,9 +190,18 @@
     container.innerHTML = cardsHtml;
   }
 
-  // ---------------------------------------------------------
-  // PDF Download (quick text export)
-  // ---------------------------------------------------------
+  window.addEventListener("DOMContentLoaded", () => {
+    const raw = localStorage.getItem("cropResults");
+    if (!raw) return;
+    let preds = [];
+    try { preds = JSON.parse(raw); } catch (err) { console.error("Failed to parse cropResults:", err); }
+    renderResults(preds, "all");
+
+    document.getElementById("languageToggle").addEventListener("change", (e) => {
+      renderResults(preds, e.target.value);
+    });
+  });
+
   async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -291,42 +209,6 @@
     doc.text(text, 10, 10, { maxWidth: 190 });
     doc.save("CropWise_Recommendations.pdf");
   }
-  window.downloadPDF = downloadPDF; // expose to onclick
-
-  // ---------------------------------------------------------
-  // Init
-  // ---------------------------------------------------------
-  window.addEventListener("DOMContentLoaded", () => {
-    const raw = localStorage.getItem("cropResults");
-    if (!raw) {
-      // No predictions saved → send back to form
-      goHome();
-      return;
-    }
-
-    let preds = [];
-    try {
-      preds = JSON.parse(raw);
-    } catch (err) {
-      console.error("Failed to parse cropResults:", err);
-      goHome();
-      return;
-    }
-
-    // Restore language preference (reuse from index if set)
-    const savedLang = localStorage.getItem("language") || "all";
-    const langSelect = document.getElementById("languageToggle");
-    langSelect.value = savedLang === "en" ? "en" : (["hi","te","all"].includes(savedLang) ? savedLang : "all");
-
-    renderResults(preds, langSelect.value);
-
-    langSelect.addEventListener("change", (e) => {
-      const val = e.target.value;
-      renderResults(preds, val);
-    });
-
-    document.getElementById("newAnalysisBtn").addEventListener("click", goHome);
-  });
 </script>
 </body>
 </html>
