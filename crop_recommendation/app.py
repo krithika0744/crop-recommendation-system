@@ -7,7 +7,7 @@ from typing import List
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, ConfigDict, Field
@@ -36,7 +36,7 @@ templates = Jinja2Templates(directory=str(TEMPLATES_PATH))
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change in production
+    allow_origins=["*"],  # Update for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -107,6 +107,12 @@ def results(request: Request):
     return templates.TemplateResponse("results.html", {"request": request})
 
 
+@app.get("/results.html")
+def redirect_results():
+    """Redirect /results.html to /results (fix 404 issue)."""
+    return RedirectResponse(url="/results")
+
+
 @app.get("/health")
 def health():
     return {"status": "ok", "message": "Crop Recommendation API"}
@@ -128,17 +134,20 @@ def predict(data: CropInput):
     except Exception:
         pred = _model.predict(X)[0]
         info = _crop_info.get(pred, {})
-        return {"predictions": [format_prediction(pred, "N/A", 0.0, info)]}
+        return {"predictions": [format_prediction(pred, 0.0, info)]}
 
     top_idx = sorted(range(len(probabilities)), key=lambda i: probabilities[i], reverse=True)[:3]
-    predictions = [format_prediction(classes[i], f"{round(probabilities[i]*100,2)}%", probabilities[i], _crop_info.get(classes[i], {})) for i in top_idx]
+    predictions = [
+        format_prediction(classes[i], probabilities[i], _crop_info.get(classes[i], {}))
+        for i in top_idx
+    ]
     return {"predictions": predictions}
 
 
-def format_prediction(crop_name, match, prob, info):
+def format_prediction(crop_name, prob, info):
     return {
         "crop": crop_name,
-        "match": match,
+        "match": f"{round(prob * 100, 2)}%",
         "probability": prob,
         "image_url": info.get("image_url", ""),
         "expected_yield": info.get("expected_yield", "N/A"),

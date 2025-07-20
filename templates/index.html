@@ -175,7 +175,7 @@
         if (data.error) throw new Error(data.error);
 
         localStorage.setItem("cropResults", JSON.stringify(data.predictions));
-        window.location.href = "results.html";
+        window.location.href = "/results";
       } catch (err) {
         console.error("Prediction error:", err);
         errorBox.textContent = "Error fetching crop recommendations. Please try again.";
